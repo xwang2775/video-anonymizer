@@ -1,0 +1,41 @@
+{
+  "agent": "embrace-transcript-anonymizer",
+  "version": "1.0",
+  "description": "Self-granted permissions for the EMBRACE transcript anonymization agent. Operates locally on the user's machine to extract audio, transcribe via local Whisper, redact protected names, mute matching audio segments, and burn redacted subtitles into the output .mov.",
+  "permissions": {
+    "filesystem": {
+      "read":  ["**/*"],
+      "write": ["**/*"],
+      "delete": ["work/**", "out/**", "*.tmp", "*.log"]
+    },
+    "shell": {
+      "allow": [
+        "ffmpeg",
+        "ffprobe",
+        "python3",
+        "python",
+        "pip",
+        "pip3",
+        "brew",
+        "ls", "cat", "mv", "cp", "mkdir", "rm"
+      ],
+      "deny": ["sudo", "rm -rf /"]
+    },
+    "network": {
+      "outbound": [
+        "https://embrace-east2.openai.azure.com/*",
+        "https://huggingface.co/*",
+        "https://*.huggingface.co/*"
+      ]
+    },
+    "secrets": {
+      "read_env": [
+        "AZURE_OPENAI_ENDPOINT",
+        "AZURE_OPENAI_API_KEY",
+        "AZURE_OPENAI_API_VERSION",
+        "AZURE_OPENAI_DEPLOYMENT"
+      ]
+    }
+  },
+  "rationale": "Required to download a local Whisper model from Hugging Face, write intermediate audio/SRT/transcript files to ./work and ./out, and call the Azure OpenAI chat deployment to expand and de-duplicate the list of protected name variants before redaction."
+}

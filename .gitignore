@@ -1,0 +1,48 @@
+# Secrets
+.env
+.env.local
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.python-version
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Bundled binaries (users install ffmpeg themselves)
+Anonymizing_data/tools/ffmpeg
+Anonymizing_data/tools/ffmpeg.zip
+
+# Raw / intermediate / output data — never commit
+# (transcripts and muted audio can still contain identifying content)
+*.mov
+*.MOV
+*.m4v
+*.mp4
+*.wav
+*.mp3
+*.m4a
+
+# Pipeline scratch + outputs
+Anonymizing_data/work*/
+Anonymizing_data/out*/
+out_exmple1/
+work_*/
+out_*/
+
+# Logs
+*.log
+
+# Transcripts/subtitles produced by runs (may contain un-redacted content)
+transcription.txt
+transcription*.txt
+transcription*.srt
+transcription*.ass
+subtitles.ass
+segments.json
+redaction_state.json
