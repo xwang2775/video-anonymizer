@@ -8,7 +8,7 @@ Given a video file and a list of names to protect, the pipeline:
 
 1. Extracts the audio track (16 kHz mono WAV).
 2. Transcribes locally with [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (word-level timestamps).
-3. Asks Azure OpenAI (GPT-4.1) to expand the protected-name list with likely Whisper mis-spellings (e.g. `Naomi` → `Nomi`, `Naomy`). Falls back to the raw list if the API is unreachable.
+3. Asks Azure OpenAI (GPT-4.1) to expand the protected-name list with likely Whisper mis-spellings (e.g. `<name1>` → `<name2>`, `<name3>`). Falls back to the raw list if the API is unreachable.
 4. Mutes the audio at every spoken-name region and replaces matching tokens with `[REDACTED]` in the transcript.
 5. Burns the redacted subtitles into the video and remuxes the muted audio back in.
 
@@ -39,7 +39,7 @@ cp .env.example .env
 cd Anonymizing_data
 python anonymize.py \
     --input path/to/video.mov \
-    --names Naomi Marion Simeon
+    --names <name1> <name2> <name3>
 ```
 
 Common flags:
